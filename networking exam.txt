@@ -1,0 +1,250 @@
+OSPF Configuration for Router 1:
+bash
+Copy code
+R1# configure terminal
+R1(config)# interface fa0/0
+R1(config-if)# ip address 192.168.1.2 255.255.255.0
+R1(config-if)# no shutdown
+R1(config-if)# exit
+
+R1(config)# interface fa1/0
+R1(config-if)# ip address 192.168.2.2 255.255.255.0
+R1(config-if)# no shutdown
+R1(config-if)# exit
+
+R1(config)# interface fa2/0
+R1(config-if)# ip address 192.168.3.2 255.255.255.0
+R1(config-if)# no shutdown
+R1(config-if)# exit
+
+R1(config)# interface fa2/1
+R1(config-if)# ip address 192.168.4.2 255.255.255.0
+R1(config-if)# no shutdown
+R1(config-if)# exit
+
+R1(config)# router ospf 1
+R1(config-router)# network 192.168.1.0 0.0.0.255 area 0
+R1(config-router)# network 192.168.2.0 0.0.0.255 area 0
+R1(config-router)# network 192.168.3.0 0.0.0.255 area 0
+R1(config-router)# network 192.168.4.0 0.0.0.255 area 0
+R1(config-router)# exit=
+Router 2 Configuration:
+Similar to Router 1, you will configure OSPF for Router 2.
+===================================================================================
+OSPF Configuration for Router 2:
+bash
+Copy code
+R2# configure terminal
+R2(config)# interface fa0/0
+R2(config-if)# ip address 192.168.1.1 255.255.255.0
+R2(config-if)# no shutdown
+R2(config-if)# exit
+
+R2(config)# interface fa1/0
+R2(config-if)# ip address 192.168.5.1 255.255.255.0
+R2(config-if)# no shutdown
+R2(config-if)# exit
+
+R2(config)# router ospf 1
+R2(config-router)# network 192.168.1.0 0.0.0.255 area 0
+R2(config-router)# network 192.168.5.0 0.0.0.255 area 0
+R2(config-router)# exit
+====================================================================================
+Router 3 Configuration:
+OSPF Configuration for Router 3:
+bash
+Copy code
+R3# configure terminal
+R3(config)# interface fa0/0
+R3(config-if)# ip address 192.168.6.1 255.255.255.0
+R3(config-if)# no shutdown
+R3(config-if)# exit
+
+R3(config)# interface fa2/1
+R3(config-if)# ip address 192.168.4.1 255.255.255.0
+R3(config-if)# no shutdown
+R3(config-if)# exit
+
+R3(config)# router ospf 1
+R3(config-router)# network 192.168.6.0 0.0.0.255 area 0
+R3(config-router)# network 192.168.4.0 0.0.0.255 area 0
+R3(config-router)# exit
+====================================================================================
+Router 4 Configuration:
+OSPF Configuration for Router 4:
+bash
+Copy code
+R4# configure terminal
+R4(config)# interface fa0/0
+R4(config-if)# ip address 192.168.8.1 255.255.255.0
+R4(config-if)# no shutdown
+R4(config-if)# exit
+
+R4(config)# interface fa1/0
+R4(config-if)# ip address 192.168.2.1 255.255.255.0
+R4(config-if)# no shutdown
+R4(config-if)# exit
+
+R4(config)# router ospf 1
+R4(config-router)# network 192.168.8.0 0.0.0.255 area 0
+R4(config-router)# network 192.168.2.0 0.0.0.255 area 0
+R4(config-router)# exit
+==========================================================================================
+Router 5 Configuration:
+OSPF Configuration for Router 5:
+bash
+Copy code
+R5# configure terminal
+R5(config)# interface fa2/0
+R5(config-if)# ip address 192.168.3.1 255.255.255.0
+R5(config-if)# no shutdown
+R5(config-if)# exit
+
+R5(config)# interface fa0/0
+R5(config-if)# ip address 192.168.7.1 255.255.255.0
+R5(config-if)# no shutdown
+R5(config-if)# exit
+
+R5(config)# router ospf 1
+R5(config-router)# network 192.168.3.0 0.0.0.255 area 0
+R5(config-router)# network 192.168.7.0 0.0.0.255 area 0
+R5(config-router)# exit
+================================================================================================
+Validation Commands:
+Once all the routers are configured with OSPF, use the following commands to verify the OSPF configuration:
+
+bash
+Copy code
+# Show OSPF neighbors
+show ip ospf neighbor
+
+# Show OSPF routes
+show ip route ospf
+
+# Show OSPF configuration
+show ip ospf
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+rip
+=================================
+router 1
+-----
+enable
+configure terminal
+interface fa0/0
+ip address 192.168.1.2 255.255.255.0
+no shutdown
+exit
+
+interface fa1/0
+ip address 192.168.2.2 255.255.255.0
+no shutdown
+exit
+
+interface fa2/0
+ip address 192.168.3.2 255.255.255.0
+no shutdown
+exit
+
+interface fa2/1
+ip address 192.168.4.2 255.255.255.0
+no shutdown
+exit
+
+router rip
+version 2
+network 192.168.1.0
+network 192.168.2.0
+network 192.168.3.0
+network 192.168.4.0
+no auto-summary
+exit
+============================================
+router 2
+------
+enable
+configure terminal
+interface fa0/0
+ip address 192.168.1.1 255.255.255.0
+no shutdown
+exit
+
+interface fa1/0
+ip address 192.168.5.1 255.255.255.0
+no shutdown
+exit
+
+router rip
+version 2
+network 192.168.1.0
+network 192.168.5.0
+no auto-summary
+exit
+================================
+Router 3 (R3) RIP Configuration:
+------
+bash
+Copy code
+enable
+configure terminal
+interface fa0/0
+ip address 192.168.6.1 255.255.255.0
+no shutdown
+exit
+
+interface fa2/1
+ip address 192.168.4.1 255.255.255.0
+no shutdown
+exit
+
+router rip
+version 2
+network 192.168.6.0
+network 192.168.4.0
+no auto-summary
+exit
+==================================
+Router 4 (R4) RIP Configuration:
+--------------
+bash
+Copy code
+enable
+configure terminal
+interface fa0/0
+ip address 192.168.8.1 255.255.255.0
+no shutdown
+exit
+
+interface fa1/0
+ip address 192.168.2.1 255.255.255.0
+no shutdown
+exit
+
+router rip
+version 2
+network 192.168.8.0
+network 192.168.2.0
+no auto-summary
+exit
+========================
+Router 5 (R5) RIP Configuration:
+--------------
+bash
+Copy code
+enable
+configure terminal
+interface fa2/0
+ip address 192.168.3.1 255.255.255.0
+no shutdown
+exit
+
+interface fa0/0
+ip address 192.168.7.1 255.255.255.0
+no shutdown
+exit
+
+router rip
+version 2
+network 192.168.3.0
+network 192.168.7.0
+no auto-summary
+exit
